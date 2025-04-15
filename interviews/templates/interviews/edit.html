@@ -27,5 +27,7 @@
     <textarea name="review" id="review">{{ interview.review }}</textarea>
   </div>
 
+  <a href="{% url 'interviews:index' %}">回面試列表</a>
+  <a href="{% url 'interviews:show' interview.id %}">回上頁</a>
   <input type="submit" value="更新" />
 </form>

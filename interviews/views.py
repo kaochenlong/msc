@@ -69,3 +69,10 @@ def new(req):
 def edit(req, id):
     interview = get_object_or_404(Interview, pk=id)
     return render(req, "interviews/edit.html", {"interview": interview})
+
+
+def delete(req, id):
+    interview = get_object_or_404(Interview, pk=id)
+    interview.delete()
+
+    return redirect("interviews:index")
