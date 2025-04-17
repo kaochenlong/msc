@@ -1,26 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Interview
+from .forms import InterviewForm
 
 
 def index(request):
     if request.POST:
-        # 新增
-        company_name = request.POST["company_name"]
-        position = request.POST["position"]
-        interview_date = request.POST["interview_date"]
-        review = request.POST["review"]
-        result = request.POST["result"]
-        rating = request.POST["rating"]
-
-        interview = Interview.objects.create(
-            company_name=company_name,
-            position=position,
-            interview_date=interview_date,
-            review=review,
-            result=result,
-            rating=rating,
-        )
-
+        form = InterviewForm(request.POST)
+        interview = form.save()
         return redirect("interviews:show", interview.id)
     else:
         interviews = Interview.objects.order_by("-id")
@@ -32,29 +18,13 @@ def index(request):
 
 
 def show(request, id):
+    interview = get_object_or_404(Interview, pk=id)
+
     if request.POST:
-        company_name = request.POST["company_name"]
-        position = request.POST["position"]
-        interview_date = request.POST["interview_date"]
-        review = request.POST["review"]
-        result = request.POST["result"]
-        rating = request.POST["rating"]
-
-        interview = get_object_or_404(Interview, pk=id)
-
-        interview.company_name = company_name
-        interview.position = position
-        interview.interview_date = interview_date
-        interview.review = review
-        interview.result = result
-        interview.rating = rating
-
-        # 更新
-        interview.save()
+        form = InterviewForm(request.POST, instance=interview)
+        form.save()
         return redirect("interviews:show", interview.id)
     else:
-        interview = get_object_or_404(Interview, pk=id)
-
         return render(
             request,
             "interviews/show.html",
