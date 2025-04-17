@@ -1,5 +1,10 @@
 <h1>公司：{{ interview.company_name }}</h1>
 
+<div> {{ interview.rating }} / 10 </div>
+<p>
+  {{ interview.review }}
+</p>
+
 <a href="{% url 'interviews:edit' interview.id %}">編輯</a>
 
 <form action="{% url 'interviews:delete' interview.id %}"
@@ -7,4 +12,18 @@
       onsubmit="return confirm('是否確認刪除？')">
   {% csrf_token %}
   <button>刪除</button>
+</form>
+
+<hr />
+
+<ul>
+{% for comment in comments %}
+  <li>{{ comment.content }}</li>
+{% endfor %}
+</ul>
+
+<form method="post" action="{% url 'interviews:comment' interview.id %}">
+  {% csrf_token %}
+  <textarea name="content"></textarea>
+  <button>新增留言</button>
 </form>

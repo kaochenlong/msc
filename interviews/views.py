@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Interview
+from .models import Interview, Comment
 from .forms import InterviewForm
 
 
@@ -25,20 +25,30 @@ def show(request, id):
         form.save()
         return redirect("interviews:show", interview.id)
     else:
+        comments = interview.comment_set.all()
         return render(
             request,
             "interviews/show.html",
-            {"interview": interview},
+            {"interview": interview, "comments": comments},
         )
 
 
 def new(req):
-    return render(req, "interviews/new.html")
+    form = InterviewForm()
+    return render(req, "interviews/new.html", {"form": form})
 
 
 def edit(req, id):
     interview = get_object_or_404(Interview, pk=id)
-    return render(req, "interviews/edit.html", {"interview": interview})
+    form = InterviewForm(instance=interview)
+    return render(
+        req,
+        "interviews/edit.html",
+        {
+            "interview": interview,
+            "form": form,
+        },
+    )
 
 
 def delete(req, id):
@@ -46,3 +56,9 @@ def delete(req, id):
     interview.delete()
 
     return redirect("interviews:index")
+
+
+def comment(request, id):
+    interview = get_object_or_404(Interview, pk=id)
+    interview.comment_set.create(content=request.POST["content"])
+    return redirect("interviews:show", interview.id)
