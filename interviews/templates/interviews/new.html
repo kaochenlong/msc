@@ -1,19 +1,24 @@
-<h1>新增面試</h1>
+{% extends "layouts/default.html" %}
 
-<a href="{% url 'interviews:index' %}">回面試列表</a>
+{% block "main" %}
+  <h1>新增面試</h1>
 
-<form action="/interviews/" method="post">
-  {% csrf_token %}
+  <a href="{% url 'interviews:index' %}">回面試列表</a>
 
-  {% for field in form %}
-    <div>
-      {{ field.label_tag }}
-      {{ field }}
-      <div style="font-size: 10px">
-        {{ field.help_text }}
+  <form action="/interviews/" method="post">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div>
+        {{ field.label_tag }}
+        {{ field }}
+        <div style="font-size: 10px">
+          {{ field.help_text }}
+        </div>
       </div>
-    </div>
-  {% endfor %}
+    {% endfor %}
 
-  <input type="submit" value="新增" />
-</form>
+    <input type="submit" value="新增" />
+  </form>
+
+{% endblock %}
