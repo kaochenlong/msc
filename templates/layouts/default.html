@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>面試</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
-    <nav>
-      <a href="{% url 'pages:home' %}">首頁</a>
-      <a href="{% url 'pages:about' %}">關於</a>
-      <a href="{% url 'pages:contact' %}">聯絡</a>
-    </nav>
+    {% include "shared/navbar.html" %}
+
     <main>{% block "main" %}{% endblock %}</main>
-    <footer>2026 版權頁</footer>
+
+    {% include "shared/footer.html" %}
   </body>
 </html>
