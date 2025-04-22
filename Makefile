@@ -6,3 +6,6 @@ migration:
 
 migrate:
 	uv run manage.py migrate
+
+shell:
+	uv run manage.py shell

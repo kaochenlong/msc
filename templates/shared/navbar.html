@@ -17,7 +17,8 @@
       <li><a href="{% url 'interviews:index' %}">面試列表</a></li>
     </ul>
   </div>
-  <div class="navbar-end">
-    <a class="btn">登入</a>
+  <div class="navbar-end gap-2">
+    <a href="{% url 'users:sign_up' %}" class="btn btn-neutral">註冊</a>
+    <a href="{% url 'users:sign_in' %}" class="btn">登入</a>
   </div>
 </div>

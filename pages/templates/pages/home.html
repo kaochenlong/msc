@@ -1,5 +1,8 @@
 {% extends "layouts/default.html" %}
 
-{% block "main" %}
+{% block main %}
   <h1>首頁</h1>
+  {% if request.user.is_authenticated %}
+    已登入
+  {% endif %}
 {% endblock %}

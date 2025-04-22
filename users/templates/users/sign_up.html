@@ -1,0 +1,17 @@
+{% extends "layouts/default.html" %}
+
+{% block main %}
+  <h1>註冊帳號</h1>
+  <form method="post" action="{% url 'users:index' %}">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div>
+        {{ field.label_tag }}
+        {{ field }}
+      </div>
+    {% endfor %}
+
+    <button class="btn btn-neutral">註冊</button>
+  </form>
+{% endblock %}
