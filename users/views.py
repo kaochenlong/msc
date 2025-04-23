@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_POST
+from django.urls import reverse
 
 
 @require_POST
@@ -13,7 +14,7 @@ def index(req):
 
 
 def sign_in(req):
-    next = req.GET.get("next", "/")
+    next = req.GET.get("next", reverse("pages:home"))
     return render(req, "users/sign_in.html", {"next": next})
 
 
@@ -30,7 +31,7 @@ def create_session(req):
     if user is not None:
         login(req, user)
 
-        next = req.POST.get("next", "/")
+        next = req.POST.get("next", "pages:home")
         return redirect(next)
     else:
         return redirect("users:sign_in")

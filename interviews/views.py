@@ -2,12 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Interview
 from .forms import InterviewForm
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 
 def index(request):
     if request.POST:
         form = InterviewForm(request.POST)
-        interview = form.save()
+        interview = form.save(commit=False)
+        interview.user = request.user
+        interview.save()
         return redirect("interviews:show", interview.id)
     else:
         interviews = Interview.objects.order_by("-id")
@@ -63,7 +66,12 @@ def delete(req, id):
     return redirect("interviews:index")
 
 
+@require_POST
+@login_required
 def comment(request, id):
     interview = get_object_or_404(Interview, pk=id)
-    interview.comment_set.create(content=request.POST["content"])
+    interview.comment_set.create(
+        content=request.POST["content"],
+        user=request.user,
+    )
     return redirect("interviews:show", interview.id)
