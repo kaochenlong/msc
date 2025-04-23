@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 
 def home(req):
-    return render(req, "pages/home.html", {"title": [1, 2, 3]})
+    return render(req, "pages/home.html")
 
 
 def about(req):

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Interview, Comment
+from .models import Interview
 from .forms import InterviewForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -17,6 +18,7 @@ def index(request):
         )
 
 
+@login_required
 def show(request, id):
     interview = get_object_or_404(Interview, pk=id)
 
@@ -33,11 +35,13 @@ def show(request, id):
         )
 
 
+@login_required
 def new(req):
     form = InterviewForm()
     return render(req, "interviews/new.html", {"form": form})
 
 
+@login_required
 def edit(req, id):
     interview = get_object_or_404(Interview, pk=id)
     form = InterviewForm(instance=interview)
@@ -51,6 +55,7 @@ def edit(req, id):
     )
 
 
+@login_required
 def delete(req, id):
     interview = get_object_or_404(Interview, pk=id)
     interview.delete()

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_POST
 
 
@@ -13,13 +13,14 @@ def index(req):
 
 
 def sign_in(req):
-    return render(req, "users/sign_in.html")
+    next = req.GET.get("next", "/")
+    return render(req, "users/sign_in.html", {"next": next})
 
 
 @require_POST
 def create_session(req):
-    username = req.POST["username"]
-    password = req.POST["password"]
+    username = req.POST.get("username")
+    password = req.POST.get("password")
 
     user = authenticate(
         username=username,
@@ -28,9 +29,17 @@ def create_session(req):
 
     if user is not None:
         login(req, user)
-        return redirect("pages:home")
+
+        next = req.POST.get("next", "/")
+        return redirect(next)
     else:
         return redirect("users:sign_in")
+
+
+@require_POST
+def delete_session(req):
+    logout(req)
+    return redirect("pages:home")
 
 
 def sign_up(req):

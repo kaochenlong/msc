@@ -5,6 +5,8 @@
   <form method="post" class="flex flex-col gap-2" action="{% url 'users:login' %}">
     {% csrf_token %}
 
+    <input type="hidden" name="next" value="{{ next }}" />
+
     <fieldset class="fieldset">
       <legend class="fieldset-legend">帳號</legend>
       <input type="text" class="input" name="username" />
