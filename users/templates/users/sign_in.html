@@ -1,20 +1,22 @@
 {% extends "layouts/default.html" %}
 
 {% block main %}
-  <h1>登入帳號</h1>
-  <form method="post" action="{% url 'users:login' %}">
+  <h1 class="text-3xl">登入</h1>
+  <form method="post" class="flex flex-col gap-2" action="{% url 'users:login' %}">
     {% csrf_token %}
 
-    <div>
-      <label>帳號</label>
-      <input type="text" name="username" />
-    </div>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">帳號</legend>
+      <input type="text" class="input" name="username" />
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend">密碼</legend>
+      <input type="password" class="input" name="password" />
+    </fieldset>
 
     <div>
-      <label>密碼</label>
-      <input type="password" name="password" />
+      <button class="btn btn-neutral">登入</button>
     </div>
-
-    <button class="btn btn-neutral">登入</button>
   </form>
 {% endblock %}
