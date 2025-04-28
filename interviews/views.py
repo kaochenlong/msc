@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Interview
+from .models import Interview, FavoriteInterview
 from .forms import InterviewForm
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -74,4 +74,18 @@ def comment(request, id):
         content=request.POST["content"],
         user=request.user,
     )
+    return redirect("interviews:show", interview.id)
+
+
+@require_POST
+@login_required
+def favorite(request, id):
+    interview = get_object_or_404(Interview, pk=id)
+    user = request.user
+
+    if user.favorite_interviews.filter(pk=interview.pk).exists():
+        user.favorite_interviews.remove(interview)
+    else:
+        user.favorite_interviews.add(interview)
+
     return redirect("interviews:show", interview.id)
