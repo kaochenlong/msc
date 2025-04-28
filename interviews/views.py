@@ -81,11 +81,18 @@ def comment(request, id):
 @login_required
 def favorite(request, id):
     interview = get_object_or_404(Interview, pk=id)
-    user = request.user
+    favorites = request.user.favorite_interviews
 
-    if user.favorite_interviews.filter(pk=interview.pk).exists():
-        user.favorite_interviews.remove(interview)
+    if favorites.filter(pk=interview.pk).exists():
+        favorites.remove(interview)
     else:
-        user.favorite_interviews.add(interview)
+        favorites.add(interview)
 
-    return redirect("interviews:show", interview.id)
+    return render(
+        request,
+        "interviews/favorite.html",
+        {
+            "user": request.user,
+            "interview": interview,
+        },
+    )
