@@ -23,7 +23,10 @@
 
   <ul class="list">
   {% for comment in comments %}
-    <li class="list-row">{{ comment.content }}</li>
+    <li class="my-1">
+      {{ comment.user }} 說：<br />
+      {{ comment.content|linebreaks }}
+    </li>
   {% endfor %}
   </ul>
 
@@ -36,7 +39,4 @@
       </div>
     </div>
   </form>
-  <div id="hello">
-    123
-  </div>
 {% endblock%}

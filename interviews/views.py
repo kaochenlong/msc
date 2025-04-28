@@ -33,7 +33,7 @@ def show(request, id):
         messages.success(request, "面試已更新")
         return redirect("interviews:show", interview.id)
     else:
-        comments = interview.comment_set.all()
+        comments = interview.comment_set.prefetch_related("user").order_by("-id")
         return render(
             request,
             "interviews/show.html",
