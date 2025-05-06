@@ -1,7 +1,9 @@
+from django.contrib import messages
 from django.shortcuts import render
 
 
 def home(req):
+    messages.success(req, "aaa")
     return render(req, "pages/home.html")
 
 
