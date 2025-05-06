@@ -6901,7 +6901,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
   var src_default = alpine_default;
   var module_default = src_default;
 
-  // src/message.js
+  // src/scripts/message.js
   var Message = () => ({
     show: true,
     close() {
@@ -6909,7 +6909,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
     }
   });
 
-  // src/app.js
+  // src/scripts/app.js
   module_default.data("message", Message);
   module_default.start();
 })();
