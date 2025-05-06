@@ -1,5 +1,7 @@
-import "htmx.org";
-import Alpine from "alpinejs";
-window.Alpine = Alpine;
+import "htmx.org"
 
-Alpine.start();
+import Alpine from "alpinejs"
+import { Message } from "./message"
+Alpine.data("message", Message)
+
+Alpine.start()
