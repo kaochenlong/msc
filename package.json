@@ -8,6 +8,7 @@
   "license": "ISC",
   "dependencies": {
     "alpinejs": "^3.14.9",
+    "braintree-web-drop-in": "^1.44.1",
     "htmx.org": "^2.0.4"
   },
   "devDependencies": {

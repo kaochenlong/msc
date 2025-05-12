@@ -26,7 +26,7 @@ def payment(req):
 
 
 @require_POST
-def asdfghjk(request):
+def checkout(request):
     result = braintree_gateway().transaction.sale(
         {
             "amount": 10,
